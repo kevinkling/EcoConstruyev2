@@ -463,8 +463,8 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 py-8">
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-4 text-gray-600 hover:text-gray-900">
-            ← Volver al inicio
+          <Link href="/" className="inline-flex items-center gap-2">
+            <span className="text-3xl font-bold" style={{ color: '#f5924e' }}>EcoConstruye</span>
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Registro de Voluntario</h1>
           <p className="text-gray-600">Únete a nuestra comunidad y ayuda en proyectos de construcción sostenible</p>

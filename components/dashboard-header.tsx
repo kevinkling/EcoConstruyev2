@@ -68,7 +68,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
             className="object-contain"
             priority
           />
-          <h1 className="text-2xl font-bold text-green-600">EcoConstruye</h1>
+          <h1 className="text-2xl font-bold" style={{ color: '#f5924e' }}>EcoConstruye</h1>
         </Link>
         
         <div className="flex items-center gap-4">

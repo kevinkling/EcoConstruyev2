@@ -53,7 +53,7 @@ export default function HomePage() {
               className="w-10 h-10 object-contain"
               priority
             />
-            <span className="text-2xl font-bold text-green-600">EcoConstruye</span>
+            <span className="text-2xl font-bold" style={{ color: '#f5924e' }}>EcoConstruye</span>
           </Link>
           <div className="flex gap-2">
             <Link href="/login">

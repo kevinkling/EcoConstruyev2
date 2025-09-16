@@ -57,7 +57,7 @@ export default function LoginPage() {
               className="object-contain"
               priority
             />
-            <span className="text-3xl font-bold text-green-600">EcoConstruye</span>
+            <span className="text-3xl font-bold" style={{ color: '#f5924e' }}>EcoConstruye</span>
           </Link>
         </div>
 
