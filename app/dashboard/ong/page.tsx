@@ -45,8 +45,54 @@ export default function ONGDashboard() {
     setMaterials(availableMaterials)
     setFilteredMaterials(availableMaterials)
 
-    // Filtrar solicitudes de esta ONG
-    setMyRequests(mockRequests.filter((r: DonationRequest) => r.ongId === currentUser.id))
+    // Filtrar solicitudes de esta ONG y agregar ejemplos si no hay ninguna
+    const ongRequests = mockRequests.filter((r: DonationRequest) => r.ongId === currentUser.id)
+    
+    if (ongRequests.length === 0) {
+      // Agregar solicitudes de ejemplo
+      const solicitudesEjemplo: DonationRequest[] = [
+        {
+          id: "req-ejemplo-1",
+          materialId: "1", // Cemento Portland
+          ongId: currentUser.id,
+          ongName: currentUser.name,
+          organizationName: currentUser.name,
+          requestedQuantity: 20,
+          message: "Necesitamos cemento para construcción de vivienda para familia vulnerable en zona rural.",
+          status: "aprobada",
+          requestDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // hace 7 días
+          responseDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // hace 5 días
+          pickupDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // hace 2 días
+        },
+        {
+          id: "req-ejemplo-2", 
+          materialId: "2", // Ladrillos rojos
+          ongId: currentUser.id,
+          ongName: currentUser.name,
+          organizationName: currentUser.name,
+          requestedQuantity: 500,
+          message: "Para construcción de aula en escuela comunitaria. Los ladrillos serán utilizados para mejorar la infraestructura educativa.",
+          status: "pendiente",
+          requestDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // hace 3 días
+          responseDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // hace 1 día
+          pickupDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(), // en 2 días
+        },
+        {
+          id: "req-ejemplo-3",
+          materialId: "3", // Hierro corrugado
+          ongId: currentUser.id,
+          ongName: currentUser.name,
+          organizationName: currentUser.name,
+          requestedQuantity: 10,
+          message: "Requerimos hierro para reforzar estructura de centro comunitario que atiende a 150 familias.",
+          status: "pendiente",
+          requestDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // hace 1 día
+        }
+      ]
+      setMyRequests(solicitudesEjemplo)
+    } else {
+      setMyRequests(ongRequests)
+    }
   }, [])
 
   useEffect(() => {
@@ -318,61 +364,56 @@ export default function ONGDashboard() {
                         pendiente: { icon: Clock, color: "text-orange-600", bg: "bg-orange-50", label: "Pendiente" },
                         aprobada: { icon: CheckCircle, color: "text-green-600", bg: "bg-green-50", label: "Aprobada" },
                         rechazada: { icon: XCircle, color: "text-red-600", bg: "bg-red-50", label: "Rechazada" },
-                        completada: {
-                          icon: CheckCircle,
-                          color: "text-blue-600",
-                          bg: "bg-blue-50",
-                          label: "Completada",
-                        },
-                      }
+                        completada: { icon: CheckCircle, color: "text-blue-600", bg: "bg-blue-50", label: "Completada" },
+                      }[request.status]
 
-                      const status = statusConfig[request.status]
-                      const StatusIcon = status.icon
+                      if (!statusConfig) return null
 
                       return (
                         <Card key={request.id}>
-                          <CardHeader>
+                          <CardContent className="pt-6">
                             <div className="flex justify-between items-start">
-                              <div>
-                                <CardTitle className="text-lg">{material.name}</CardTitle>
-                                <p className="text-gray-600 mt-1">{material.location}</p>
-                              </div>
-                              <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${status.bg}`}>
-                                <StatusIcon className={`h-4 w-4 ${status.color}`} />
-                                <span className={`text-sm font-medium ${status.color}`}>{status.label}</span>
-                              </div>
-                            </div>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="space-y-3">
-                              <div>
-                                <h4 className="font-medium mb-1">Tu mensaje:</h4>
-                                <p className="text-gray-600 bg-gray-50 p-3 rounded-lg text-sm">{request.message}</p>
-                              </div>
+                              <div className="flex-1">
+                                <h3 className="font-semibold text-lg">{material.name}</h3>
+                                <p className="text-sm text-gray-600 mb-2">{material.category}</p>
+                                <p className="text-sm text-gray-500 mb-3">{request.message}</p>
+                                
+                                <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                                  <span>Cantidad: {request.requestedQuantity} {material.unit}</span>
+                                  <span>•</span>
+                                  <span>{material.location}</span>
+                                </div>
 
-                              <div className="text-sm text-gray-500">
-                                Enviado el{" "}
-                                {new Date(request.requestDate).toLocaleDateString("es-ES", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
+                                <div className="flex items-center gap-2 mb-2">
+                                  <statusConfig.icon className={`h-4 w-4 ${statusConfig.color}`} />
+                                  <span className={`text-sm font-medium ${statusConfig.color}`}>
+                                    {statusConfig.label}
+                                  </span>
+                                </div>
+
+                                <p className="text-xs text-gray-400">
+                                  Solicitado el {new Date(request.requestDate).toLocaleDateString()}
+                                  {request.responseDate && (
+                                    <span> • Respondido el {new Date(request.responseDate).toLocaleDateString()}</span>
+                                  )}
+                                  {request.pickupDate && (
+                                    <span> • Recogida programada: {new Date(request.pickupDate).toLocaleDateString()}</span>
+                                  )}
+                                </p>
                               </div>
 
                               {request.status === "aprobada" && (
-                                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                                  <h4 className="font-medium text-green-800 mb-2">¡Solicitud Aprobada!</h4>
-                                  <p className="text-green-700 text-sm mb-3">
-                                    Puedes coordinar la recogida del material contactando directamente con la empresa.
-                                  </p>
-                                  <div className="space-y-1 text-sm">
-                                    <p>
-                                      <strong>Empresa:</strong> {material.companyName}
-                                    </p>
-                                    <p>
-                                      <strong>Ubicación:</strong> {material.location}
-                                    </p>
-                                  </div>
+                                <div className="ml-4">
+                                  <Button 
+                                    size="sm" 
+                                    className="bg-blue-600 hover:bg-blue-700"
+                                    onClick={() => {
+                                      // Aquí iría la lógica para generar el certificado
+                                      alert(`Generando certificado de donación para ${material.name}`)
+                                    }}
+                                  >
+                                    Generar Certificado
+                                  </Button>
                                 </div>
                               )}
                             </div>
