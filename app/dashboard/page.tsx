@@ -15,17 +15,13 @@ export default function DashboardPage() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log("[v0] Dashboard: Checking authentication...")
     const currentUser = AuthService.getCurrentUser()
-    console.log("[v0] Dashboard: Current user:", currentUser)
 
     if (!currentUser) {
-      console.log("[v0] Dashboard: No user found, redirecting to login")
       router.push("/login")
       return
     }
 
-    console.log("[v0] Dashboard: User authenticated, setting state")
     setUser(currentUser)
     setIsLoading(false)
   }, [router])
@@ -239,6 +235,10 @@ export default function DashboardPage() {
 
               <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
                 <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white text-sm">
+                  🚚
+                </div>
+                <div>
+                  <p className="font-medium">Transporte coordinado</p>
                   🚚
                 </div>
                 <div>
