@@ -51,9 +51,10 @@ export default function LoginPage() {
             <Image 
               src="/images/logo.webp" 
               alt="EcoConstruye" 
-              width={48} 
-              height={48}
-              className="w-12 h-12 object-contain"
+              width={80} 
+              height={80}
+              style={{ width: '80px', height: '80px' }}
+              className="object-contain"
               priority
             />
             <span className="text-3xl font-bold text-green-600">EcoConstruye</span>

@@ -62,9 +62,10 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
           <Image 
             src="/images/logo.webp" 
             alt="EcoConstruye" 
-            width={50} 
-            height={50}
-            className="w-10 h-10 object-contain"
+            width={48} 
+            height={48}
+            style={{ width: '48px', height: '48px' }}
+            className="object-contain"
             priority
           />
           <h1 className="text-2xl font-bold text-green-600">EcoConstruye</h1>
