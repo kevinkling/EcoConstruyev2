@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus, Package, Users, TrendingUp, AlertCircle } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
+import { DashboardHeader } from "@/components/dashboard-header"
 
 export default function EmpresaDashboard() {
   const [user, setUser] = useState<User | null>(null)
@@ -169,25 +171,7 @@ export default function EmpresaDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="text-2xl font-bold text-green-600">
-                EcoConstruye
-              </Link>
-              <Badge variant="secondary">{user.role}</Badge>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">Hola, {user.name}</span>
-              <Button variant="outline" onClick={handleLogout}>
-                Cerrar Sesión
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <DashboardHeader user={user} />
 
       <main className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
@@ -373,6 +357,18 @@ export default function EmpresaDashboard() {
                                 <p className="text-sm text-gray-600">
                                   Solicita: {material?.name || 'Material no encontrado'}
                                 </p>
+                                
+                                {/* Información de contacto de la ONG */}
+                                <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-3 mt-2">
+                                  <h4 className="font-medium text-green-900 mb-1">Información de la ONG</h4>
+                                  <div className="space-y-1 text-sm text-green-800">
+                                    <p><strong>Organización:</strong> {request.organizationName}</p>
+                                    <p><strong>Email:</strong> contacto@{request.organizationName.toLowerCase().replace(/\s+/g, '').replace(/ñ/g, 'n')}.org</p>
+                                    <p><strong>Teléfono:</strong> +57 {Math.floor(Math.random() * 900 + 300)}-{Math.floor(Math.random() * 9000 + 1000)}</p>
+                                    <p><strong>Tipo:</strong> Organización sin ánimo de lucro</p>
+                                  </div>
+                                </div>
+
                                 <p className="text-sm text-gray-500 mt-1">{request.message}</p>
                                 
                                 <div className="flex items-center gap-4 text-sm text-gray-600 mt-2">

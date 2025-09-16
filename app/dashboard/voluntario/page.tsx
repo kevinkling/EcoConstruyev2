@@ -11,6 +11,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RequestService } from "@/lib/request-service"
 import { NotificationCenter } from "@/components/notification-center"
+import Link from "next/link"
+import Image from "next/image"
+import { DashboardHeader } from "@/components/dashboard-header"
 
 const ProjectsMap = ({ projects, selectedProjects }: { projects: any[]; selectedProjects: string[] }) => {
   return (
@@ -202,14 +205,15 @@ export default function VoluntarioDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-8">
+    <div className="min-h-screen bg-gray-50">
+      <DashboardHeader user={{ id: volunteerId, name: "Voluntario", role: "voluntario", email: "voluntario@demo.com" }} />
+
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="mb-8 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard de Voluntario</h1>
             <p className="text-gray-600">Ayuda con el transporte y coordinación de donaciones</p>
           </div>
-          <NotificationCenter notifications={notifications} userType="ong" />
         </div>
 
         <div className="space-y-8">

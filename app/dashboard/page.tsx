@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null)
@@ -89,7 +90,14 @@ export default function DashboardPage() {
       <header className="border-b bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">♻️</span>
+            <Image 
+              src="/images/logo.webp" 
+              alt="EcoConstruye" 
+              width={32} 
+              height={32}
+              className="w-8 h-8 object-contain"
+              priority
+            />
             <h1 className="text-2xl font-bold text-gray-900">EcoConstruye</h1>
           </div>
           <div className="flex items-center gap-4">
@@ -235,10 +243,6 @@ export default function DashboardPage() {
 
               <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
                 <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white text-sm">
-                  🚚
-                </div>
-                <div>
-                  <p className="font-medium">Transporte coordinado</p>
                   🚚
                 </div>
                 <div>

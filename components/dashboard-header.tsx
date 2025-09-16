@@ -7,6 +7,8 @@ import { AuthService } from "@/lib/auth"
 import { NotificationCenter } from "@/components/notification-center"
 import type { User } from "@/lib/types"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import Image from "next/image"
 
 interface DashboardHeaderProps {
   user: User | null
@@ -56,10 +58,17 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
   return (
     <header className="border-b bg-white/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">♻️</span>
-          <h1 className="text-2xl font-bold text-gray-900">EcoConstruye</h1>
-        </div>
+        <Link href="/" className="flex items-center gap-2">
+          <Image 
+            src="/images/logo.webp" 
+            alt="EcoConstruye" 
+            width={32} 
+            height={32}
+            className="w-8 h-8 object-contain"
+            priority
+          />
+          <h1 className="text-2xl font-bold text-green-600">EcoConstruye</h1>
+        </Link>
         
         <div className="flex items-center gap-4">
           <Badge variant="secondary" className="flex items-center gap-1">

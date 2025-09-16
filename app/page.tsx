@@ -7,6 +7,7 @@ import type { User } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null)
@@ -43,10 +44,17 @@ export default function HomePage() {
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">♻️</span>
-            <h1 className="text-2xl font-bold text-gray-900">EcoConstruye</h1>
-          </div>
+          <Link href="/" className="flex items-center gap-2">
+            <Image 
+              src="/images/logo.webp" 
+              alt="EcoConstruye" 
+              width={40} 
+              height={40}
+              className="w-10 h-10 object-contain"
+              priority
+            />
+            <span className="text-2xl font-bold text-green-600">EcoConstruye</span>
+          </Link>
           <div className="flex gap-2">
             <Link href="/login">
               <Button variant="outline">Iniciar Sesión</Button>

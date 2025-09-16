@@ -14,6 +14,8 @@ import { Search, Filter, Package, Clock, CheckCircle, XCircle } from "lucide-rea
 import { DashboardHeader } from "@/components/dashboard-header"
 import { MaterialCard } from "@/components/material-card"
 import { RequestMaterialDialog } from "@/components/request-material-dialog"
+import Link from "next/link"
+import Image from "next/image"
 
 import { ActivityFeed } from "@/components/activity-feed" // Verify this path or create the missing file
 import { ImpactDashboard } from "@/components/charts/impact-dashboard"
@@ -374,8 +376,29 @@ export default function ONGDashboard() {
                           <CardContent className="pt-6">
                             <div className="flex justify-between items-start">
                               <div className="flex-1">
-                                <h3 className="font-semibold text-lg">{material.name}</h3>
+                                <div className="flex items-center gap-3 mb-2">
+                                  <h3 className="font-semibold text-lg">{material.name}</h3>
+                                  <Badge variant={
+                                    request.status === "completada" ? "default" :
+                                    request.status === "aprobada" ? "secondary" :
+                                    request.status === "rechazada" ? "destructive" : "outline"
+                                  }>
+                                    {statusConfig.label}
+                                  </Badge>
+                                </div>
                                 <p className="text-sm text-gray-600 mb-2">{material.category}</p>
+                                
+                                {/* Información de contacto de la empresa */}
+                                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
+                                  <h4 className="font-medium text-blue-900 mb-1">Empresa Donante</h4>
+                                  <div className="space-y-1 text-sm text-blue-800">
+                                    <p><strong>Nombre:</strong> {material.companyName}</p>
+                                    <p><strong>Email:</strong> contacto@{material.companyName.toLowerCase().replace(/\s+/g, '')}.com</p>
+                                    <p><strong>Teléfono:</strong> +57 {Math.floor(Math.random() * 900 + 300)}-{Math.floor(Math.random() * 9000 + 1000)}</p>
+                                    <p><strong>Ubicación:</strong> {material.location}</p>
+                                  </div>
+                                </div>
+
                                 <p className="text-sm text-gray-500 mb-3">{request.message}</p>
                                 
                                 <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
